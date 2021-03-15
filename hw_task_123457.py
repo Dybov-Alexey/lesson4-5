@@ -2,6 +2,8 @@ from functools import reduce
 
 def factorial(n):
     proiz = 1
+    if n == 0:
+        return 1
     while n != 1:
         proiz *= n
         n -= 1
@@ -13,14 +15,7 @@ fact = lambda x: 1 if x == 0 else x * fact(x-1)
 # print(reduce(lambda x,y:x*y,range(1,n+1)))
 # a = lambda x,y:x*y,range(1,n+1)
 
-def usealpha(stroka):
-    stroka = str(stroka)
-    print(f'Введенная строка: {stroka}')
-    while len(stroka) != 0:
-        print(f'Символ {stroka[0]} встречается {stroka.count(stroka[0])} раз(а)')
-        stroka = stroka.replace(stroka[0],'')
-
-useal = lambda str: [print(f'Символ {str[i]} встречается {str.count(str[i])} раз(а) ') for i in range(0,len(str))]
+useal = lambda str: [print(f'Символ {str[i]} встречается {str.count(str[i])} раз(а) ') and set(str) for i in range(0,len(str))]
 
 def usealpha():
     while True:
@@ -42,14 +37,11 @@ def usealpha():
         if n == 2:
             stroka = str(input('Введите текст: '))
             helper = stroka.split(' ' or '\n')
-            print(len(helper))
+            print(f'Количество слов в веденном тексте - {len(helper)}')
         if n == 3:
             stroka = str(input('Введите текст: '))
-            helper = stroka.split('.' or '!' or '?')#только не работает с ! ?
-            for i in range(1,len(helper)):
-                if helper[i][len(helper[i])-1].isupper():
-                    helper.pop(i)
-            print(len(helper))
+            helper = stroka.count('.')+stroka.count('!')+stroka.count('?')
+            print(f'Количество предложений в веденном тексте не менее - {helper}')
         if n == 4:
             print('Goodbye!')
             break
@@ -70,7 +62,7 @@ def bank():
             print('Еще раз')
             continue
         break
-    print(f'К {date} ваша сумма будет равна {rec(how,proc,date)} ')
+    print(f'К {date} месяцу ваша сумма будет равна {rec(how,proc,date)} ')
 
 def rec(how,proc,date):
     if date == 1:
@@ -99,6 +91,9 @@ while True:
                 except:
                     print('Еще раз!')
                     continue
+                if a < 0:
+                    print('Еще раз!')
+                    continue
                 break
             print(f'Факториал {a} равен {factorial(a)}')
         if n == 2:
@@ -108,13 +103,22 @@ while True:
                 except:
                     print('Еще раз!')
                     continue
+                if a < 0:
+                    print('Еще раз!')
+                    continue
                 break
-            print(f'Факториал {a} равен {reduce(lambda x,y:x*y,range(1,a+1))}')
+            try:
+                print(f'Факториал {a} равен {reduce(lambda x,y:x*y,range(1,a+1))}')
+            except:
+                print(f'Факториал {a} равен 1')
         if n == 3:
             while True:
                 try:
                     a = int(input('Введите число для которого посчитать факториал: '))
                 except:
+                    print('Еще раз!')
+                    continue
+                if a < 0:
                     print('Еще раз!')
                     continue
                 break
